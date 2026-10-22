@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roshan Singh | RTL & Digital VLSI Design Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ebebeb;
+      --card-bg: #ffffff;
+      --dark-card: #0c0e12;
+      --border: 3px solid #000000;
+      --shadow: 4px 4px 0px #000000;
+      --shadow-lg: 6px 6px 0px #000000;
+      --blue: #0055ff;
+      --green: #00c853;
+      --yellow: #ffb300;
+      --red: #ff3838;
+      --text: #050505;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      padding: 16px 12px 60px 12px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Top Bar */
+    .sys-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000;
+      color: #fff;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      border: var(--border);
+      box-shadow: var(--shadow);
+    }
+    .sys-badge {
+      background: var(--blue);
+      color: #fff;
+      padding: 3px 8px;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    /* Brutalist Card Frame */
+    .brutal-card {
+      background: var(--card-bg);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    /* Blue L-Brackets */
+    .corner-bracket {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 4px solid var(--blue);
+      pointer-events: none;
+      z-index: 10;
+    }
+    .cb-tl { top: -8px; left: -8px; border-right: none; border-bottom: none; }
+    .cb-tr { top: -8px; right: -8px; border-left: none; border-bottom: none; }
+    .cb-bl { bottom: -8px; left: -8px; border-right: none; border-top: none; }
+    .cb-br { bottom: -8px; right: -8px; border-left: none; border-top: none; }
+
+    /* Photo Frame */
+    .photo-container {
+      padding: 16px;
+      background: #fafafa;
+      border-bottom: var(--border);
+      display: flex;
+      justify-content: center;
+    }
+    .photo-inner-frame {
+      width: 100%;
+      max-width: 320px;
+      height: 390px;
+      border: var(--border);
+      background: #111;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .photo-inner-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Profile Content */
+    .profile-content { padding: 22px 18px; }
+    .profile-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .profile-role {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #000;
+      margin-bottom: 16px;
+    }
+    .profile-bio {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    /* Parameters Box */
+    .sys-parameters { border: 2px solid #000; margin-bottom: 20px; }
+    .sys-params-head {
+      background: #000;
+      color: #fff;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .sys-params-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .param-cell {
+      padding: 10px 12px;
+      border-bottom: 1px solid #ccc;
+      background: #fff;
+    }
+    .param-cell:nth-child(odd) { border-right: 1px solid #ccc; }
+    .param-key { font-size: 10px; color: #777; text-transform: uppercase; margin-bottom: 4px; }
+    .param-val { font-size: 13px; font-weight: 800; color: #000; }
+    .param-val.hl { color: var(--blue); }
+
+    /* Action Buttons */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; }
+    .brutal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #000;
+      color: #fff;
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      border: 2px solid #000;
+      text-decoration: none;
+      box-shadow: 4px 4px 0px var(--blue);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .brutal-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--blue); }
+    .brutal-btn.white { background: #fff; color: #000; box-shadow: var(--shadow); }
+    .brutal-btn.white:hover { box-shadow: 6px 6px 0px #000; }
+
+    /* Headers */
+    .sec-head { margin-bottom: 12px; }
+    .sec-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+    .sec-sub {
+      font-size: 11px;
+      color: #555;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      padding-bottom: 6px;
+      border-bottom: 3px solid #000;
+    }
+
+    /* Terminal Console */
+    .terminal-card {
+      background: #000;
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 14px;
+      color: #fff;
+    }
+    .term-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .term-title { font-size: 11px; color: #4da3ff; font-weight: 700; }
+    .term-dots { display: flex; gap: 6px; }
+    .tdot { width: 10px; height: 10px; border-radius: 50%; }
+    .t-red { background: #ff5f56; }
+    .t-yel { background: #ffbd2e; }
+    .t-grn { background: #27c93f; }
+    .term-console { font-size: 11px; line-height: 1.6; min-height: 165px; }
+    .c-sys { color: #00e676; font-weight: bold; }
+    .c-info { color: #40c4ff; }
+    .c-cmd { color: #ffffff; font-weight: bold; }
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background: #00e676;
+      animation: blink 0.8s infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* Pipeline Simulator */
+    .pipeline-wrapper {
+      background: var(--dark-card);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+      color: #fff;
+    }
+    .stages-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .stage-item {
+      border: 2px solid #333;
+      padding: 10px 4px;
+      text-align: center;
+      background: #13171f;
+      transition: all 0.2s;
+    }
+    .stage-item.active { border-color: var(--blue); background: #0055ff28; }
+    .stage-label { font-size: 14px; font-weight: 900; display: block; }
+    .stage-sub { font-size: 8px; color: #888; text-transform: uppercase; }
+    .pipeline-matrix {
+      background: #11141c;
+      border: 1px solid #282e3d;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .pipe-row { font-size: 11px; margin-bottom: 6px; color: #4da3ff; }
+    .pipe-info-desc {
+      font-size: 10px;
+      color: #aaa;
+      line-height: 1.4;
+      background: #161a22;
+      padding: 8px;
+      border-left: 3px solid var(--yellow);
+    }
+    .step-btn {
+      width: 100%;
+      background: var(--blue);
+      border: none;
+      color: #fff;
+      padding: 12px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* Floorplan */
+    .floorplan-box {
+      background: #fff;
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+    }
+    .fp-diagram {
+      position: relative;
+      width: 100%;
+      height: 310px;
+      border: 2px solid #000;
+      background: 
+        linear-gradient(#f0f0f0 1px, transparent 1px),
+        linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
+      background-size: 14px 14px;
+    }
+    .macro {
+      position: absolute;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+      transition: transform 0.1s;
+    }
+    .macro:hover { transform: scale(1.03); filter: brightness(0.92); z-index: 5; }
+    .m-riscv { top: 40px; left: 15px; width: 120px; height: 100px; background: #bbdefb; }
+    .m-l2    { top: 20px; left: 150px; width: 75px; height: 200px; background: #c8e6c9; }
+    .m-pwr   { top: 20px; right: 15px; width: 85px; height: 60px; background: #fff59d; }
+    .m-clk   { top: 90px; right: 15px; width: 85px; height: 60px; background: #ffe082; }
+    .m-ddr   { top: 160px; right: 15px; width: 85px; height: 65px; background: #e1bee7; }
+    .m-gft   { bottom: 20px; left: 15px; width: 210px; height: 50px; background: #b3e5fc; }
+    .m-pcie  { bottom: 20px; right: 15px; width: 85px; height: 50px; background: #d1c4e9; }
+
+    .macro-display {
+      margin-top: 12px;
+      background: #000;
+      color: #fff;
+      padding: 10px 12px;
+      font-size: 11px;
+      border: 1px solid #333;
+    }
+    .macro-display span { color: var(--blue); font-weight: 800; }
+
+    /* Wafer Metrology */
+    .wafer-card {
+      background: #fff;
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .wafer-canvas-wrapper {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 3px solid #000;
+      background: #d8d8d8;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+      margin-bottom: 14px;
+    }
+    .wafer-grid { display: grid; grid-template-columns: repeat(14, 13px); gap: 2px; }
+    .die { width: 13px; height: 13px; border: 0.5px solid #666; }
+    .d-good { background: #00e676; }
+    .d-marginal { background: #ffb300; }
+    .d-fail { background: #ff1744; }
+
+    .wafer-telemetry {
+      width: 100%;
+      background: #000;
+      color: #fff;
+      padding: 14px;
+      border: var(--border);
+    }
+    .wt-label { font-size: 10px; color: #00e676; font-weight: 800; letter-spacing: 1px; }
+    .wt-yield {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    /* STA Waveform */
+    .sta-card {
+      background: var(--dark-card);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+      color: #fff;
+    }
+    .sta-canvas {
+      width: 100%;
+      height: 160px;
+      border: 1px solid #333;
+      display: block;
+      background: #000;
+    }
+    .sta-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .sta-pause-btn {
+      background: var(--blue);
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    /* Skills Macros */
+    .skill-macro-box {
+      background: #fff;
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 20px;
+    }
+    .macro-header {
+      background: #000;
+      color: #fff;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .macro-badge {
+      background: #252525;
+      color: #fff;
+      padding: 2px 8px;
+      font-size: 10px;
+      border: 1px solid #444;
+    }
+    .macro-row {
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ebebeb;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .macro-row:last-child { border-bottom: none; }
+    .dots-rating { display: flex; gap: 4px; }
+    .dot-sq { width: 8px; height: 12px; background: #ddd; }
+    .dot-sq.filled { background: var(--blue); }
+
+    /* Certifications */
+    .cert-box {
+      background: #fff;
+      border: 2px solid #000;
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cert-heading { font-size: 14px; font-weight: 800; margin-bottom: 3px; }
+    .cert-issuer { font-size: 11px; color: #666; }
+    .cert-tag {
+      font-size: 11px;
+      font-weight: 800;
+      background: #f0f0f0;
+      border: 1px solid #000;
+      padding: 3px 8px;
+    }
+
+    footer { text-align: center; padding: 24px 0 10px 0; font-size: 11px; color: #666; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="sys-top-bar">
+      <div>SYS_CALL // ROSHAN_VLSI_PORTFOLIO</div>
+      <div class="sys-badge">SYS_ONLINE</div>
+    </div>
+
+    <!-- MAIN PROFILE (100% Identical to Screenshot) -->
+    <div class="brutal-card">
+      <div class="corner-bracket cb-tl"></div>
+      <div class="corner-bracket cb-tr"></div>
+      <div class="corner-bracket cb-bl"></div>
+      <div class="corner-bracket cb-br"></div>
+
+      <div class="photo-container">
+        <div class="photo-inner-frame">
+          <img src="profile.jpg" alt="Roshan Singh" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80';"/>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div class="profile-title">ROSHAN<br>SINGH</div>
+        <div class="profile-role">RTL & DIGITAL VLSI DESIGN ENGINEER</div>
+
+        <p class="profile-bio">
+          M.Tech VLSI candidate at <strong>IIIT Guwahati</strong> with strong hands-on RTL design experience in Verilog and SystemVerilog — FIFO architecture, FPGA prototyping on Xilinx Virtex-7, and robust CDC/reset handling. Skilled across the ASIC design flow (synthesis, STA, place & route) and Cadence Virtuoso analog simulation. Seeking an RTL Design role.
+        </p>
+
+        <div class="sys-parameters">
+          <div class="sys-params-head">01 10 &nbsp; SYSTEM_PARAMETERS</div>
+          <div class="sys-params-grid">
+            <div class="param-cell">
+              <div class="param-key">DOMAIN_1</div>
+              <div class="param-val">RTL Design</div>
+            </div>
+            <div class="param-cell">
+              <div class="param-key">DOMAIN_2</div>
+              <div class="param-val hl">FPGA / ASIC Flow</div>
+            </div>
+            <div class="param-cell">
+              <div class="param-key">TECH_NODE</div>
+              <div class="param-val">Virtex-7 / 30nm GAA</div>
+            </div>
+            <div class="param-cell">
+              <div class="param-key">TIMING</div>
+              <div class="param-val hl">STA & CDC Closure</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-stack">
+          <a href="#projects" class="brutal-btn">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 2v12h12V2H2zm11 11H3V3h10v10z"/></svg>
+            VIEW_TAPEOUTS / PROJECTS
+          </a>
+          <a href="mailto:rsrajput1245@gmail.com" class="brutal-btn white">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
+            I/O_ACCESS (CONTACT)
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div>
+      <div class="sec-head">
+        <div class="sec-title">EDA SIMULATOR</div>
+        <div class="sec-sub">REALTIME COMPILATION & VERIFICATION LOGS</div>
+      </div>
+      <div class="terminal-card">
+        <div class="term-top">
+          <div class="term-title">&gt;_ EDA_TOOL_CLI // REALTIME_LOGS</div>
+          <div class="term-dots">
+            <span class="tdot t-red"></span>
+            <span class="tdot t-yel"></span>
+            <span class="tdot t-grn"></span>
+          </div>
+        </div>
+        <div class="term-console" id="termLogs"></div>
+      </div>
+    </div>
+
+    <!-- 5-STAGE PIPELINE -->
+    <div>
+      <div class="sec-head">
+        <div class="sec-title">PIPELINE EXECUTION</div>
+        <div class="sec-sub">5-STAGE RISC INSTRUCTION-LEVEL PARALLELISM</div>
+      </div>
+      <div class="pipeline-wrapper">
+        <div class="stages-bar">
+          <div class="stage-item active" id="stg-0"><span class="stage-label" style="color:#29b6f6;">IF</span><span class="stage-sub">FETCH</span></div>
+          <div class="stage-item" id="stg-1"><span class="stage-label" style="color:#ab47bc;">ID</span><span class="stage-sub">DECODE</span></div>
+          <div class="stage-item" id="stg-2"><span class="stage-label" style="color:#ffa726;">EX</span><span class="stage-sub">EXECUTE</span></div>
+          <div class="stage-item" id="stg-3"><span class="stage-label" style="color:#26a69a;">MEM</span><span class="stage-sub">MEMORY</span></div>
+          <div class="stage-item" id="stg-4"><span class="stage-label" style="color:#ef5350;">WB</span><span class="stage-sub">WRITEBACK</span></div>
+        </div>
+        <div class="pipeline-matrix">
+          <div class="pipe-row" id="curInstr">CURRENT INSTRUCTION: <strong>ADD x1, x2, x3</strong></div>
+          <div style="font-size: 10px; color: #888;" id="curSub">Stage Active: IF (Instruction Fetch from I-Cache)</div>
+        </div>
+        <button class="step-btn" onclick="nextCycle()">STEP CLOCK CYCLE (+1 CLK)</button>
+      </div>
+    </div>
+
+    <!-- FLOORPLAN -->
+    <div>
+      <div class="sec-head">
+        <div class="sec-title">INTERACTIVE FLOORPLAN</div>
+        <div class="sec-sub">PHYSICAL DESIGN MACRO PLACEMENT</div>
+      </div>
+      <div class="floorplan-box">
+        <div class="fp-diagram">
+          <div class="macro m-riscv" onclick="showMacro('RISC-V CORE', 'Verilog RTL core running @ 500MHz.')">RISC-V</div>
+          <div class="macro m-l2" onclick="showMacro('L2 CACHE SRAM', 'Dense synchronous memory macro.')">L2</div>
+          <div class="macro m-pwr" onclick="showMacro('POWER MANAGEMENT', 'Voltage rails and low-dropout regulators.')">POWER</div>
+          <div class="macro m-clk" onclick="showMacro('CLOCK / PLL', 'Phase-locked loop clock generation tree.')">CLOCK</div>
+          <div class="macro m-ddr" onclick="showMacro('DDR4 PHY', 'High-speed external interface.')">DDR4</div>
+          <div class="macro m-gft" onclick="showMacro('GFT ACCELERATOR', 'Multiplier-Free Galois Field accelerator array.')">GF ACCELERATOR</div>
+          <div class="macro m-pcie" onclick="showMacro('PCIE MACRO', 'PCIe Gen3 PHY controller macro.')">PCIE</div>
+        </div>
+        <div class="macro-display" id="macroInfo">CLICK ANY MACRO BLOCK TO INSPECT CONSTRAINTS.</div>
+      </div>
+    </div>
+
+    <!-- WAFER YIELD -->
+    <div>
+      <div class="sec-head">
+        <div class="sec-title">
